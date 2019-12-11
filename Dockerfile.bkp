@@ -1,0 +1,23 @@
+FROM centos:7
+
+MAINTAINER Ladybird Web Solutions <support@ladybirdweb.com>
+
+RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+RUN rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+
+RUN yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y
+RUN yum install yum-utils
+RUN yum update -y
+RUN yum install -y git curl openssl httpd
+
+RUN yum install -y php72w-cli.x86_64 php72w-common.x86_64 php72w-fpm.x86_64 php72w-gd.x86_64 php72w-mbstring.x86_64 php72w-mcrypt.x86_64 php72w-mysql.x86_64 php72w-odbc.x86_64 php72w-pdo.x86_64 php72w-xml.x86_64 mod_php72w php72w-opcache php72w-imap.x86_64 php72w-bcmath.x86_64 php72w-ldap
+
+EXPOSE 80
+RUN echo "ServerName localhost" >> /etc/httpd/conf/httpd.conf
+
+ENTRYPOINT ["/usr/sbin/httpd", "-D", "FOREGROUND"]
+
+
+
+
+
